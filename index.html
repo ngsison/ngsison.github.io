@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nathaniel Brion Sison — iOS Engineer</title>
+<meta name="description" content="Nathaniel Brion Sison — iOS Engineer with 9+ years in software and 8+ shipping iOS apps, from fintech at scale (GCash) to a portfolio of self-published App Store apps.">
+<meta name="author" content="Nathaniel Brion Sison">
+<meta name="theme-color" content="#c0392b">
+
+<!-- Canonical (update if you deploy somewhere other than ngsison.github.io) -->
+<link rel="canonical" href="https://ngsison.github.io/">
+
+<!-- Favicons -->
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ngsison.github.io/">
+<meta property="og:title" content="Nathaniel Brion Sison — iOS Engineer">
+<meta property="og:description" content="iOS Engineer with 9+ years in software and 8+ shipping iOS apps — fintech at scale (GCash) plus a portfolio of self-published App Store apps.">
+<meta property="og:image" content="https://ngsison.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nathaniel Brion Sison — iOS Engineer">
+<meta name="twitter:description" content="9+ years in software, 8+ shipping iOS apps. GCash fintech plus a portfolio of self-published App Store apps.">
+<meta name="twitter:image" content="https://ngsison.github.io/assets/og.png">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Nathaniel Brion Sison",
+  "jobTitle": "iOS Engineer",
+  "url": "https://ngsison.github.io/",
+  "email": "ngsison@outlook.com",
+  "address": { "@type": "PostalAddress", "addressLocality": "Tarlac", "addressCountry": "PH" },
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "Central Luzon State University" },
+  "knowsAbout": ["iOS", "Swift", "SwiftUI", "UIKit", "Clean Architecture", "Objective-C"],
+  "sameAs": [
+    "https://linkedin.com/in/ngsison",
+    "https://github.com/ngsison"
+  ]
+}
+</script>
+
+<style>
+  :root {
+    --ink:        #1a1a1a;
+    --ink-soft:   #555;
+    --ink-faint:  #888;
+    --accent:     #c0392b;
+    --accent-dk:  #a5301f;
+    --rule:       #e4e0d8;
+    --paper:      #ffffff;
+    --bg:         #f4f2ec;
+    --tag-bg:     #f4f1ea;
+    --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --maxw: 1040px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--bg);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { color: var(--accent-dk); }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- Nav ---------- */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(244,242,236,0.85);
+    backdrop-filter: saturate(180%) blur(10px);
+    -webkit-backdrop-filter: saturate(180%) blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .nav-name {
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .nav-name span { color: var(--accent); }
+  .nav-links { display: flex; gap: 26px; }
+  .nav-links a {
+    color: var(--ink-soft);
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-toggle {
+    display: none;
+    background: none; border: 0; cursor: pointer;
+    padding: 8px; margin: -8px;
+  }
+  .nav-toggle span {
+    display: block; width: 22px; height: 2px;
+    background: var(--ink); border-radius: 2px;
+    transition: transform .2s ease, opacity .2s ease;
+  }
+  .nav-toggle span + span { margin-top: 5px; }
+  @media (max-width: 680px) {
+    .nav-toggle { display: block; }
+    .nav-links {
+      position: absolute;
+      top: 60px; left: 0; right: 0;
+      flex-direction: column;
+      gap: 0;
+      background: var(--paper);
+      border-bottom: 1px solid var(--rule);
+      box-shadow: 0 10px 24px rgba(0,0,0,.06);
+      padding: 6px 0;
+      opacity: 0;
+      transform: translateY(-8px);
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+    }
+    .nav-links a { padding: 13px 28px; font-size: 15px; }
+    nav.open .nav-links { opacity: 1; transform: none; pointer-events: auto; }
+    nav.open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+    nav.open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
+
+  /* ---------- Hero ---------- */
+  header.hero {
+    padding: 84px 0 64px;
+    border-bottom: 1px solid var(--rule);
+    background:
+      radial-gradient(900px 320px at 0% -10%, rgba(192,57,43,0.05), transparent 70%),
+      var(--paper);
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: clamp(36px, 6.5vw, 60px);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    margin-bottom: 20px;
+  }
+  .lede {
+    font-size: clamp(17px, 2.4vw, 20px);
+    color: var(--ink-soft);
+    line-height: 1.55;
+    max-width: 660px;
+  }
+  .hero-actions {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 20px;
+    border-radius: 8px;
+    font-size: 14.5px;
+    font-weight: 600;
+    border: 1px solid var(--rule);
+    transition: transform .12s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+  .btn-primary:hover { background: var(--accent-dk); border-color: var(--accent-dk); color: #fff; transform: translateY(-1px); }
+  .btn-ghost { background: var(--paper); color: var(--ink); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+  /* ---------- Section scaffolding ---------- */
+  section.block { padding: 64px 0; border-bottom: 1px solid var(--rule); }
+  .section-head {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 28px;
+  }
+  .section-head .num { color: var(--ink-faint); margin-right: 10px; font-weight: 600; }
+
+  .prose { font-size: 18px; line-height: 1.7; color: var(--ink); max-width: 720px; }
+  .prose strong { font-weight: 600; }
+
+  .stat-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 36px;
+    margin-top: 32px;
+  }
+  .stat .n { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
+  .stat .l { font-size: 13px; color: var(--ink-faint); margin-top: 2px; }
+
+  /* ---------- Projects ---------- */
+  .proj-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 720px) { .proj-grid { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 22px 22px 20px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;            /* allow grid item to shrink so .shots can scroll */
+    transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.07);
+    border-color: #d8d2c6;
+  }
+  .card.feature { grid-column: 1 / -1; }
+  .work-sub {
+    grid-column: 1 / -1;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 600;
+    color: var(--ink-faint);
+    margin: 14px 0 -4px;
+  }
+  .work-sub:first-child { margin-top: 0; }
+  .role-tag {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--ink-faint);
+    background: var(--tag-bg);
+    border: 1px solid var(--rule);
+    padding: 2px 9px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .card-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .card h3 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+  .card .desc { color: var(--ink-soft); font-size: 15px; margin-top: 6px; line-height: 1.5; }
+  .card-links { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13.5px; font-weight: 600; }
+  .card-links a { display: inline-flex; align-items: center; gap: 5px; }
+  .card-links a::after { content: "↗"; font-size: 11px; color: var(--ink-faint); }
+  .stack { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    background: var(--tag-bg);
+    border: 1px solid var(--rule);
+    padding: 3px 9px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  .rating { font-size: 12.5px; font-weight: 600; color: var(--accent); white-space: nowrap; }
+
+  /* ---------- Reviews ---------- */
+  .review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 820px) { .review-grid { grid-template-columns: 1fr; } }
+  .review {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+  }
+  .review .stars { color: #e0a800; font-size: 15px; letter-spacing: 2px; margin-bottom: 10px; }
+  .review .r-title { font-weight: 700; font-size: 15.5px; margin-bottom: 7px; }
+  .review .r-body { font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; flex: 1; }
+  .review .r-by { margin-top: 14px; font-size: 12.5px; color: var(--ink-faint); }
+  .review-foot { margin-top: 18px; font-size: 13px; color: var(--ink-faint); }
+
+  /* ---------- App screenshots ---------- */
+  .shots {
+    margin-top: 16px;
+    max-width: 100%;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .shots::-webkit-scrollbar { height: 6px; }
+  .shots::-webkit-scrollbar-track { background: transparent; }
+  .shots::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 3px; }
+  .shots img {
+    height: 300px;
+    width: auto;
+    border-radius: 16px;
+    border: 1px solid var(--rule);
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    background: var(--tag-bg);
+    display: block;
+  }
+  .feature .shots img { height: 320px; }
+  .shots img { cursor: zoom-in; }
+
+  /* ---------- Lightbox ---------- */
+  .lb {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(22,20,18,0.9);
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+    display: none; align-items: center; justify-content: center;
+  }
+  .lb.open { display: flex; }
+  .lb-img {
+    max-width: 90vw; max-height: 86vh;
+    border-radius: 20px;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.55);
+    user-select: none; -webkit-user-drag: none;
+  }
+  .lb button {
+    position: absolute;
+    background: rgba(255,255,255,0.14);
+    color: #fff; border: 0; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1; transition: background .15s ease;
+  }
+  .lb button:hover { background: rgba(255,255,255,0.28); }
+  .lb-close { top: 18px; right: 20px; width: 44px; height: 44px; border-radius: 50%; font-size: 24px; }
+  .lb-prev, .lb-next { top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 50%; font-size: 30px; }
+  .lb-prev { left: 16px; } .lb-next { right: 16px; }
+  .lb-count { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 13px; letter-spacing: .04em; opacity: .85; }
+  @media (max-width: 680px) {
+    .lb-prev, .lb-next { display: none; }   /* swipe instead */
+    .lb-img { max-width: 94vw; }
+  }
+
+  /* ---------- Recommendations ---------- */
+  .rec-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  @media (max-width: 820px) { .rec-grid { grid-template-columns: 1fr; } }
+  .rec {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+  }
+  .rec .quote-mark { color: var(--accent); font-size: 30px; line-height: 0.2; font-weight: 700; height: 16px; }
+  .rec .quote { font-size: 14.5px; color: var(--ink-soft); line-height: 1.6; flex: 1; }
+  .rec .rec-by { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--rule); }
+  .rec .rec-name { font-weight: 700; font-size: 15px; color: var(--ink); }
+  .rec .rec-role { font-size: 12.5px; color: var(--ink-faint); margin-top: 2px; line-height: 1.4; }
+  .rec .rec-rel { font-size: 12px; color: var(--accent); margin-top: 5px; }
+  .endorse { margin-top: 34px; }
+  .endorse-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); font-weight: 600; margin-bottom: 12px; }
+  .endorse-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .endorse-tag {
+    background: var(--tag-bg);
+    border: 1px solid var(--rule);
+    padding: 6px 13px;
+    border-radius: 100px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .endorse-tag b { color: var(--accent); font-weight: 700; }
+  .endorse-foot { margin-top: 18px; font-size: 13px; color: var(--ink-faint); }
+
+  /* ---------- Experience timeline ---------- */
+  .xp { border-left: 2px solid var(--rule); margin-left: 6px; }
+  .xp-item { position: relative; padding: 0 0 30px 28px; }
+  .xp-item:last-child { padding-bottom: 0; }
+  .xp-item::before {
+    content: "";
+    position: absolute;
+    left: -7px; top: 6px;
+    width: 12px; height: 12px;
+    background: var(--paper);
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+  }
+  .xp-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+  .xp-role { font-size: 17px; font-weight: 700; }
+  .xp-co { color: var(--accent); font-weight: 600; font-size: 15px; }
+  .xp-dates { font-size: 13px; color: var(--ink-faint); white-space: nowrap; }
+  .xp-meta { font-size: 12.5px; color: var(--ink-faint); margin: 2px 0 10px; }
+  .xp-list { list-style: none; }
+  .xp-list li { position: relative; padding-left: 16px; font-size: 14.5px; color: var(--ink-soft); margin-bottom: 5px; line-height: 1.5; }
+  .xp-list li::before { content: ""; position: absolute; left: 2px; top: 9px; width: 5px; height: 5px; background: var(--accent); border-radius: 50%; }
+
+  /* ---------- Skills ---------- */
+  .skill-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px 40px; max-width: 860px; }
+  @media (max-width: 620px) { .skill-grid { grid-template-columns: 1fr; } }
+  .skill-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-faint); font-weight: 600; margin-bottom: 10px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+
+  /* ---------- Education ---------- */
+  .edu-row { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; }
+  .edu-deg { font-size: 17px; font-weight: 700; }
+  .edu-school { color: var(--accent); font-weight: 600; font-size: 15px; }
+  .edu-dates { font-size: 13px; color: var(--ink-faint); }
+
+  /* ---------- Footer ---------- */
+  footer { padding: 56px 0 64px; text-align: center; }
+  footer h2 { font-size: 26px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 10px; }
+  footer p { color: var(--ink-soft); margin-bottom: 24px; }
+  .foot-links { display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; font-weight: 600; font-size: 15px; }
+  .colophon { margin-top: 40px; font-size: 12.5px; color: var(--ink-faint); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <div class="nav-name">Nathaniel Brion <span>Sison</span></div>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#recommendations">Recommendations</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">iOS Engineer</div>
+    <h1>I build iOS apps,<br>end to end.</h1>
+    <p class="lede">
+      9+ years in software and 8+ shipping iOS apps — from fintech at scale at
+      <strong>GCash</strong> to a portfolio of self-published App&nbsp;Store apps.
+      I care about clean architecture, testable code, and getting things from
+      first commit to release.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#work">View my apps</a>
+      <a class="btn btn-ghost" href="resume.pdf" target="_blank" rel="noopener">Download résumé</a>
+      <a class="btn btn-ghost" href="https://github.com/ngsison" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section class="block" id="about">
+  <div class="wrap">
+    <div class="section-head"><span class="num">01</span>About</div>
+    <p class="prose">
+      I'm an iOS engineer based in Tarlac, Philippines. Over the last
+      decade I've shipped apps across very different settings — high-traffic
+      fintech at <strong>GCash</strong>, a range of freelance and contract
+      products for US teams, and my own apps on the App&nbsp;Store. I'm
+      comfortable owning a feature from the data layer up, setting up the
+      CI/CD that ships it, and keeping the codebase healthy along the way.
+    </p>
+    <div class="stat-row">
+      <div class="stat"><div class="n">9+</div><div class="l">years in software</div></div>
+      <div class="stat"><div class="n">8+</div><div class="l">years shipping iOS</div></div>
+      <div class="stat"><div class="n">6</div><div class="l">self-published apps</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="block" id="work">
+  <div class="wrap">
+    <div class="section-head"><span class="num">02</span>Selected Work</div>
+    <div class="proj-grid">
+
+      <article class="card">
+        <div class="card-top"><h3>Moneta</h3><span class="rating">★ 5.0 · App Store</span></div>
+        <p class="desc">Budget tracker — expense logging and daily spending insights.</p>
+        <div class="card-links">
+          <a href="https://apps.apple.com/app/moneta-budget-tracker/id6759993693" target="_blank" rel="noopener">App Store</a>
+        </div>
+        <div class="shots">
+          <img loading="lazy" alt="Moneta screenshot" src="assets/shots/shot-01.webp">
+          <img loading="lazy" alt="Moneta screenshot" src="assets/shots/shot-02.webp">
+          <img loading="lazy" alt="Moneta screenshot" src="assets/shots/shot-03.webp">
+          <img loading="lazy" alt="Moneta screenshot" src="assets/shots/shot-04.webp">
+          <img loading="lazy" alt="Moneta screenshot" src="assets/shots/shot-05.webp">
+          <img loading="lazy" alt="Moneta screenshot" src="assets/shots/shot-06.webp">
+        </div>
+        <div class="stack">
+          <span class="tag">Swift</span><span class="tag">SwiftUI</span><span class="tag">SwiftData</span>
+          <span class="tag">Clean Architecture</span><span class="tag">Factory</span><span class="tag">Firebase</span>
+          <span class="tag">IAP</span><span class="tag">Offline Sync</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>Quickworm</h3><span class="rating">★ 5.0 · App Store</span></div>
+        <p class="desc">AI-generated, free book summaries.</p>
+        <div class="card-links">
+          <a href="https://apps.apple.com/app/quickworm-ai-book-summaries/id6446362167" target="_blank" rel="noopener">App Store</a>
+        </div>
+        <div class="shots">
+          <img loading="lazy" alt="Quickworm screenshot" src="assets/shots/shot-07.webp">
+          <img loading="lazy" alt="Quickworm screenshot" src="assets/shots/shot-08.webp">
+          <img loading="lazy" alt="Quickworm screenshot" src="assets/shots/shot-09.webp">
+          <img loading="lazy" alt="Quickworm screenshot" src="assets/shots/shot-10.webp">
+          <img loading="lazy" alt="Quickworm screenshot" src="assets/shots/shot-11.webp">
+        </div>
+        <div class="stack">
+          <span class="tag">Swift</span><span class="tag">SwiftUI</span><span class="tag">MVVM</span>
+          <span class="tag">OpenAI</span><span class="tag">SSE</span><span class="tag">Firebase</span>
+          <span class="tag">CoreData</span><span class="tag">AdMob</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>Bubble Pop</h3></div>
+        <p class="desc">Calming, stress-relief bubble-popping game.</p>
+        <div class="card-links">
+          <a href="https://apps.apple.com/app/bubble-pop-tap-relax/id6758484261" target="_blank" rel="noopener">App Store</a>
+        </div>
+        <div class="shots">
+          <img loading="lazy" alt="Bubble Pop screenshot" src="assets/shots/shot-12.webp">
+          <img loading="lazy" alt="Bubble Pop screenshot" src="assets/shots/shot-13.webp">
+          <img loading="lazy" alt="Bubble Pop screenshot" src="assets/shots/shot-14.webp">
+          <img loading="lazy" alt="Bubble Pop screenshot" src="assets/shots/shot-15.webp">
+          <img loading="lazy" alt="Bubble Pop screenshot" src="assets/shots/shot-16.webp">
+        </div>
+        <div class="stack">
+          <span class="tag">Swift</span><span class="tag">SwiftUI</span><span class="tag">AVFoundation</span>
+          <span class="tag">Combine</span><span class="tag">Factory</span><span class="tag">StoreKit</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>Metronome</h3><span class="rating">★ 5.0 · App Store</span></div>
+        <p class="desc">Tempo and beat keeper for musicians.</p>
+        <div class="card-links">
+          <a href="https://apps.apple.com/app/metronome-tempo-rhythm/id6757783410" target="_blank" rel="noopener">App Store</a>
+        </div>
+        <div class="shots">
+          <img loading="lazy" alt="Metronome screenshot" src="assets/shots/shot-17.webp">
+          <img loading="lazy" alt="Metronome screenshot" src="assets/shots/shot-18.webp">
+          <img loading="lazy" alt="Metronome screenshot" src="assets/shots/shot-19.webp">
+          <img loading="lazy" alt="Metronome screenshot" src="assets/shots/shot-20.webp">
+          <img loading="lazy" alt="Metronome screenshot" src="assets/shots/shot-21.webp">
+        </div>
+        <div class="stack">
+          <span class="tag">Swift</span><span class="tag">SwiftUI</span><span class="tag">AVFoundation</span>
+          <span class="tag">Combine</span><span class="tag">Factory</span><span class="tag">StoreKit</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>First Words for Baby</h3></div>
+        <p class="desc">Flashcard and ABC learning app for babies.</p>
+        <div class="card-links">
+          <a href="https://apps.apple.com/app/first-words-for-baby-cards/id6757969632" target="_blank" rel="noopener">App Store</a>
+        </div>
+        <div class="shots">
+          <img loading="lazy" alt="First Words for Baby screenshot" src="assets/shots/shot-22.webp">
+          <img loading="lazy" alt="First Words for Baby screenshot" src="assets/shots/shot-23.webp">
+          <img loading="lazy" alt="First Words for Baby screenshot" src="assets/shots/shot-24.webp">
+          <img loading="lazy" alt="First Words for Baby screenshot" src="assets/shots/shot-25.webp">
+          <img loading="lazy" alt="First Words for Baby screenshot" src="assets/shots/shot-26.webp">
+        </div>
+        <div class="stack">
+          <span class="tag">Swift</span><span class="tag">SwiftUI</span><span class="tag">AVFoundation</span>
+          <span class="tag">Combine</span><span class="tag">Factory</span><span class="tag">StoreKit</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><h3>Dice Roller</h3></div>
+        <p class="desc">D&amp;D, tabletop, and RPG dice companion.</p>
+        <div class="card-links">
+          <a href="https://apps.apple.com/app/dice-roller-board-game-rng/id6757341540" target="_blank" rel="noopener">App Store</a>
+        </div>
+        <div class="shots">
+          <img loading="lazy" alt="Dice Roller screenshot" src="assets/shots/shot-27.webp">
+          <img loading="lazy" alt="Dice Roller screenshot" src="assets/shots/shot-28.webp">
+          <img loading="lazy" alt="Dice Roller screenshot" src="assets/shots/shot-29.webp">
+          <img loading="lazy" alt="Dice Roller screenshot" src="assets/shots/shot-30.webp">
+          <img loading="lazy" alt="Dice Roller screenshot" src="assets/shots/shot-31.webp">
+        </div>
+        <div class="stack">
+          <span class="tag">Swift</span><span class="tag">SwiftUI</span><span class="tag">AVFoundation</span>
+          <span class="tag">AdMob</span><span class="tag">StoreKit</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="block" id="reviews">
+  <div class="wrap">
+    <div class="section-head"><span class="num">03</span>What users say</div>
+    <div class="review-grid">
+
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <div class="r-title">Best envelope budgeting app so far</div>
+        <p class="r-body">"I've tried other budgeting apps before, but the envelope budgeting in Moneta is the easiest to understand. It clearly shows how much money is left in each category, which helps me avoid overspending. Highly recommended."</p>
+        <div class="r-by">— angelprtty · Moneta on the App Store</div>
+      </div>
+
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <div class="r-title">I love it!</div>
+        <p class="r-body">"I've tried a lot of budgeting apps and honestly, most of them feel overwhelming. This one is the opposite. You just set your budget and track what you spend. Also love that I can track money people owe me — super useful."</p>
+        <div class="r-by">— eren_ly · Moneta on the App Store</div>
+      </div>
+
+      <div class="review">
+        <div class="stars">★★★★★</div>
+        <div class="r-title">Superb.</div>
+        <p class="r-body">"Easily log all your expenses and even those who owe you."</p>
+        <div class="r-by">— DarrTheGreatest · Moneta on the App Store</div>
+      </div>
+
+    </div>
+    <p class="review-foot">Moneta holds a 5.0★ average on the App Store. Reviews shown as published.</p>
+  </div>
+</section>
+
+<!-- RECOMMENDATIONS -->
+<section class="block" id="recommendations">
+  <div class="wrap">
+    <div class="section-head"><span class="num">04</span>Recommendations</div>
+    <div class="rec-grid">
+
+      <div class="rec">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote">I had the pleasure of working with Nate for over two years, and it was a truly enjoyable experience. Nate is an outstanding iOS engineer who stays up to date with the latest Apple technologies, and he communicates his knowledge and opinions effectively. I have full confidence in Nate's architectural decisions and his ability to lead an iOS project. I highly recommend him for any team or project requiring a skilled and reliable professional.</p>
+        <div class="rec-by">
+          <div class="rec-name">Sang Lee</div>
+          <div class="rec-role">Software Engineer</div>
+          <div class="rec-rel">Managed Nate directly</div>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote">I worked closely with Nathaniel for several years on a mobile app development team, where he served as our Team Leader. His leadership skills were exceptional — professional, dedicated, with a keen eye for detail. As an iOS developer his expertise was truly exceptional: his coding skills were top-notch and he consistently delivered high-quality, bug-free code that exceeded our project's requirements. He led by example and inspired the team to strive for excellence.</p>
+        <div class="rec-by">
+          <div class="rec-name">Nathaniel Marzan</div>
+          <div class="rec-role">Senior Software Engineer at Tyler Technologies</div>
+          <div class="rec-rel">Managed Nate directly</div>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote">Nate possesses a deep understanding of mobile development, mainly React Native and iOS, demonstrating proficiency in both frontend and mobile application development. His ability to translate design mockups into fully functional and aesthetically pleasing mobile applications is truly commendable. Nate has a keen eye for detail and a passion for writing clean, efficient, and maintainable code.</p>
+        <div class="rec-by">
+          <div class="rec-name">Bryan James Malaluan</div>
+          <div class="rec-role">Senior React Native Developer · Mobile Development</div>
+          <div class="rec-rel">Worked with Nate on the same team</div>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote">I remember feeling thankful every time I learned that the developer I was going to work with on a project was Nate. This is his brand of work. He goes out of his way to explain everything needed, and helps you out in case you get confused along the way. He has a cheerful aura that makes him an approachable and likable co-worker, on top of being a known outstanding developer in the team.</p>
+        <div class="rec-by">
+          <div class="rec-name">Jelenee Laborte</div>
+          <div class="rec-role">Quality Engineering Manager at Samsung · ISTQB-CTFL</div>
+          <div class="rec-rel">Worked with Nate on the same team</div>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote">Nate has been a well-rounded and outstanding iOS developer on the team. He willingly shares his knowledge and demonstrates his expertise in his profession. As a lead iOS developer, he is determined to handle many projects and produce outputs that make an impact and contribute to the growth of the company. He is a passionate developer and an enthusiast of technology.</p>
+        <div class="rec-by">
+          <div class="rec-name">Cris de Leon</div>
+          <div class="rec-role">Front End Software Engineer at GCash</div>
+          <div class="rec-rel">Worked with Nate at GCash</div>
+        </div>
+      </div>
+
+      <div class="rec">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote">Brion is an outstanding Software Engineer. He always produces high-quality code and always follows the SOLID principles. He is highly organized and has an excellent work ethic. Most especially, he loves what he does.</p>
+        <div class="rec-by">
+          <div class="rec-name">Hydee Sabile</div>
+          <div class="rec-role">Software Developer</div>
+          <div class="rec-rel">Worked with Nate on the same team</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="endorse">
+      <div class="endorse-label">Top skill endorsements on LinkedIn</div>
+      <div class="endorse-tags">
+        <span class="endorse-tag">JavaScript <b>19</b></span>
+        <span class="endorse-tag">C# <b>18</b></span>
+        <span class="endorse-tag">Swift <b>16</b></span>
+        <span class="endorse-tag">Object-Oriented Programming <b>13</b></span>
+        <span class="endorse-tag">.NET Framework <b>13</b></span>
+        <span class="endorse-tag">Xamarin <b>13</b></span>
+        <span class="endorse-tag">Microsoft Azure <b>13</b></span>
+        <span class="endorse-tag">Objective-C <b>11</b></span>
+        <span class="endorse-tag">Git</span>
+        <span class="endorse-tag">SwiftUI</span>
+      </div>
+      <p class="endorse-foot">Recommendations and endorsements from colleagues on <a href="https://linkedin.com/in/ngsison" target="_blank" rel="noopener">LinkedIn</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="block" id="experience">
+  <div class="wrap">
+    <div class="section-head"><span class="num">05</span>Experience</div>
+    <div class="xp">
+
+      <div class="xp-item">
+        <div class="xp-head">
+          <div><span class="xp-role">iOS Engineer</span> · <span class="xp-co">Nmblr, Inc.</span></div>
+          <div class="xp-dates">Dec 2025 – Present</div>
+        </div>
+        <div class="xp-meta">Contract · Philippines — Remote</div>
+        <ul class="xp-list">
+          <li>Drove privacy compliance by integrating the TrustArc SDK with Google Consent callbacks and recategorizing Braze event tracking.</li>
+          <li>Delivered Drive-Thru ordering end to end — data layer, cart, and option-selection UI — following Clean Architecture.</li>
+          <li>Built order-cancellation logic for scheduled pickups past reward expiration and enforced coupon-eligibility rules.</li>
+          <li>Shipped Add-to-Favorite locations, deep-link navigation to store pages, and real-time credit-card brand detection.</li>
+          <li>Hardened the codebase by eliminating unsafe force-unwraps and centralizing scattered constants.</li>
+        </ul>
+      </div>
+
+      <div class="xp-item">
+        <div class="xp-head">
+          <div><span class="xp-role">iOS Engineer</span> · <span class="xp-co">Milagro (Upwork)</span></div>
+          <div class="xp-dates">Jan 2024 – Nov 2025</div>
+        </div>
+        <div class="xp-meta">Freelance · United States — Remote</div>
+        <ul class="xp-list">
+          <li>Built a CI/CD pipeline with GitHub Actions and Docker, letting QA generate Firebase and TestFlight builds independently.</li>
+          <li>Revamped the networking layer with Moya, async/await, custom plugins, and unified error handling.</li>
+          <li>Implemented dependency injection with Factory, CoreData repositories, and unit testing with XCTest.</li>
+          <li>Resolved critical WebSocket issues and integrated Combine for a more reliable real-time experience.</li>
+          <li>Introduced SwiftLint, SwiftFormat, build schemes, dark mode, EventBus, network monitoring, and refresh-token handling.</li>
+        </ul>
+      </div>
+
+      <div class="xp-item">
+        <div class="xp-head">
+          <div><span class="xp-role">iOS Engineer</span> · <span class="xp-co">Studio (Upwork)</span></div>
+          <div class="xp-dates">Jan 2024 – Feb 2024</div>
+        </div>
+        <div class="xp-meta">Freelance · United States — Remote</div>
+        <ul class="xp-list">
+          <li>Developed a custom video player with playback controls, picture-in-picture, and progress saving.</li>
+          <li>Built a Tinder-style card layout for browsing peers and a custom sidebar with interactive gestures.</li>
+          <li>Created a component generating background colors from an image's dominant colors (Spotify-style).</li>
+          <li>Identified and fixed a major CPU/memory issue caused by image processing.</li>
+        </ul>
+      </div>
+
+      <div class="xp-item">
+        <div class="xp-head">
+          <div><span class="xp-role">iOS Engineer</span> · <span class="xp-co">CircleIn (Upwork)</span></div>
+          <div class="xp-dates">Jun 2021 – Dec 2023</div>
+        </div>
+        <div class="xp-meta">Freelance · United States — Remote</div>
+        <ul class="xp-list">
+          <li>Developed a community chat feature similar to Discord, with reactions and image/file uploads.</li>
+          <li>Built an interactive onboarding feature helping students find study groups by shared interests.</li>
+          <li>Developed flashcard games (Match Magic, Quiz Yourself) and a course-feedback feature for professors.</li>
+          <li>Refactored the majority of the codebase for maintainability and performance; added unit tests.</li>
+        </ul>
+      </div>
+
+      <div class="xp-item">
+        <div class="xp-head">
+          <div><span class="xp-role">iOS Engineer</span> · <span class="xp-co">Globe Fintech (Mynt) — GCash</span></div>
+          <div class="xp-dates">Dec 2018 – Jun 2021</div>
+        </div>
+        <div class="xp-meta">Full-time · Philippines — On-Site</div>
+        <ul class="xp-list">
+          <li>Developed biometric login (Touch ID / Face ID) and an Upload-QR feature for payment transactions.</li>
+          <li>Built the Saved Billers feature for Bank Transfer.</li>
+          <li>Incorporated a mini-program SDK letting partners showcase apps inside GCash and integrate securely for payments.</li>
+          <li>Implemented a CDP SDK for in-app ads; resolved critical production issues and App Store rejections.</li>
+          <li>Conducted code reviews, added unit tests, and managed feature rollouts with Firebase Remote Config.</li>
+        </ul>
+      </div>
+
+      <div class="xp-item">
+        <div class="xp-head">
+          <div><span class="xp-role">Mobile Engineer</span> · <span class="xp-co">TAP Services, Inc.</span></div>
+          <div class="xp-dates">Aug 2017 – Aug 2018</div>
+        </div>
+        <div class="xp-meta">Full-time · Philippines — On-Site</div>
+        <ul class="xp-list">
+          <li>Started a React Native project from scratch using Redux for state management.</li>
+          <li>Managed app schemes, certificates, and provisioning profiles; automated builds with Microsoft App Center.</li>
+          <li>Implemented bug fixes and change requests for an Objective-C iOS app.</li>
+        </ul>
+      </div>
+
+      <div class="xp-item">
+        <div class="xp-head">
+          <div><span class="xp-role">Junior Web Developer</span> · <span class="xp-co">Smart Communications, Inc.</span></div>
+          <div class="xp-dates">Aug 2016 – Aug 2017</div>
+        </div>
+        <div class="xp-meta">Full-time · Philippines — On-Site</div>
+        <ul class="xp-list">
+          <li>Built a reporting feature with charts, graphs, and server-side pagination using JavaScript.</li>
+          <li>Implemented bug fixes and change requests for web apps using C# and ASP.NET Web Forms.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="block" id="skills">
+  <div class="wrap">
+    <div class="section-head"><span class="num">06</span>Skills</div>
+    <div class="skill-grid">
+      <div>
+        <div class="skill-label">Languages</div>
+        <div class="skill-tags">
+          <span class="tag">Swift</span><span class="tag">Objective-C</span><span class="tag">JavaScript</span><span class="tag">C# / .NET</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-label">Frameworks &amp; Libraries</div>
+        <div class="skill-tags">
+          <span class="tag">SwiftUI</span><span class="tag">UIKit</span><span class="tag">AVFoundation</span>
+          <span class="tag">Combine</span><span class="tag">RxSwift</span><span class="tag">WebSockets</span>
+          <span class="tag">Widgets</span><span class="tag">Firebase</span><span class="tag">CoreData</span>
+          <span class="tag">SwiftData</span><span class="tag">Moya</span><span class="tag">Factory</span>
+          <span class="tag">StoreKit</span><span class="tag">AdMob</span><span class="tag">React Native</span><span class="tag">Flutter</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-label">Tools</div>
+        <div class="skill-tags">
+          <span class="tag">Git</span><span class="tag">GitHub Actions</span><span class="tag">Docker</span>
+          <span class="tag">SPM</span><span class="tag">CocoaPods</span><span class="tag">SwiftLint</span>
+          <span class="tag">Fastlane</span><span class="tag">Unit Testing</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-label">Architecture &amp; Other</div>
+        <div class="skill-tags">
+          <span class="tag">MVC / MVVM</span><span class="tag">Clean Architecture</span>
+          <span class="tag">Dependency Injection</span><span class="tag">Figma</span>
+          <span class="tag">Jira / Linear / Trello</span><span class="tag">Public speaking</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="block" id="education">
+  <div class="wrap">
+    <div class="section-head"><span class="num">07</span>Education</div>
+    <div class="edu-row">
+      <div>
+        <div class="edu-deg">BS in Information Technology</div>
+        <div class="edu-school">Central Luzon State University</div>
+      </div>
+      <div class="edu-dates">2011 – 2016</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / FOOTER -->
+<footer id="contact">
+  <div class="wrap">
+    <h2>Let's work together.</h2>
+    <p>Open to iOS roles and freelance projects. The fastest way to reach me:</p>
+    <div class="foot-links">
+      <a href="mailto:ngsison@outlook.com">Email</a>
+      <a href="https://linkedin.com/in/ngsison" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/ngsison" target="_blank" rel="noopener">GitHub</a>
+      <a href="resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
+    </div>
+    <div class="colophon">© <span id="year"></span> Nathaniel Brion Sison · Built with plain HTML &amp; CSS.</div>
+  </div>
+</footer>
+
+<div class="lb" id="lb" aria-hidden="true" role="dialog" aria-label="Screenshot viewer">
+  <button class="lb-close" aria-label="Close">&times;</button>
+  <button class="lb-prev" aria-label="Previous screenshot">&lsaquo;</button>
+  <img class="lb-img" id="lb-img" alt="">
+  <button class="lb-next" aria-label="Next screenshot">&rsaquo;</button>
+  <div class="lb-count" id="lb-count"></div>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile nav toggle
+  (function () {
+    var nav = document.querySelector('nav');
+    var btn = nav.querySelector('.nav-toggle');
+    btn.addEventListener('click', function () {
+      var open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // close the menu after tapping a link
+    nav.querySelectorAll('.nav-links a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        nav.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+
+  // Screenshot lightbox — click to enlarge, arrows/swipe to navigate
+  (function () {
+    var lb = document.getElementById('lb');
+    var lbImg = document.getElementById('lb-img');
+    var lbCount = document.getElementById('lb-count');
+    var group = [], idx = 0;
+
+    function render() {
+      var img = group[idx];
+      lbImg.src = img.src;
+      lbImg.alt = img.alt || '';
+      lbCount.textContent = (idx + 1) + ' / ' + group.length;
+    }
+    function open(strip, i) {
+      group = Array.prototype.slice.call(strip.querySelectorAll('img'));
+      idx = i;
+      render();
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    function step(d) { idx = (idx + d + group.length) % group.length; render(); }
+
+    document.querySelectorAll('.shots').forEach(function (strip) {
+      var imgs = Array.prototype.slice.call(strip.querySelectorAll('img'));
+      imgs.forEach(function (img, i) {
+        img.addEventListener('click', function () { open(strip, i); });
+      });
+    });
+
+    lb.querySelector('.lb-close').addEventListener('click', close);
+    lb.querySelector('.lb-prev').addEventListener('click', function (e) { e.stopPropagation(); step(-1); });
+    lb.querySelector('.lb-next').addEventListener('click', function (e) { e.stopPropagation(); step(1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowRight') step(1);
+      else if (e.key === 'ArrowLeft') step(-1);
+    });
+
+    // touch swipe
+    var x0 = null;
+    lb.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+      x0 = null;
+    }, { passive: true });
+  })();
+</script>
+
+</body>
+</html>
