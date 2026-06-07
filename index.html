@@ -931,6 +931,12 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // Always start screenshot strips at the first (leftmost) image
+  document.querySelectorAll('.shots').forEach(function(s) { s.scrollLeft = 0; });
+  window.addEventListener('pageshow', function() {
+    document.querySelectorAll('.shots').forEach(function(s) { s.scrollLeft = 0; });
+  });
+
   // Mobile nav toggle
   (function () {
     var nav = document.querySelector('nav');
