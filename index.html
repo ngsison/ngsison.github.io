@@ -45,7 +45,8 @@
   "knowsAbout": ["iOS", "Swift", "SwiftUI", "UIKit", "Clean Architecture", "Objective-C"],
   "sameAs": [
     "https://linkedin.com/in/ngsison",
-    "https://github.com/ngsison"
+    "https://github.com/ngsison",
+    "https://www.upwork.com/freelancers/~01716d0c8e39ab39a5"
   ]
 }
 </script>
@@ -178,6 +179,27 @@
     line-height: 1.55;
     max-width: 660px;
   }
+  .hero-badges {
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 14px;
+    border-radius: 100px;
+    background: var(--tag-bg);
+    border: 1px solid var(--rule);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .hero-badge .ico { color: var(--accent); font-size: 12px; }
+  a.hero-badge { transition: border-color .15s ease, color .15s ease; }
+  a.hero-badge:hover { border-color: var(--accent); color: var(--accent); }
   .hero-actions {
     margin-top: 32px;
     display: flex;
@@ -468,6 +490,10 @@
       I care about clean architecture, testable code, and getting things from
       first commit to release.
     </p>
+    <div class="hero-badges">
+      <a class="hero-badge" href="https://www.upwork.com/freelancers/~01716d0c8e39ab39a5" target="_blank" rel="noopener"><span class="ico">✦</span>Top Rated Plus on Upwork</a>
+      <span class="hero-badge"><span class="ico">✓</span>100% Job Success</span>
+    </div>
     <div class="hero-actions">
       <a class="btn btn-primary" href="#work">View my apps</a>
       <a class="btn btn-ghost" href="resume.pdf" target="_blank" rel="noopener">Download resume</a>
@@ -914,6 +940,7 @@
       <a href="mailto:ngsison@outlook.com">Email</a>
       <a href="https://linkedin.com/in/ngsison" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://github.com/ngsison" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.upwork.com/freelancers/~01716d0c8e39ab39a5" target="_blank" rel="noopener">Upwork</a>
       <a href="resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
     </div>
     <div class="colophon">© <span id="year"></span> Nathaniel Brion Sison · Built with plain HTML &amp; CSS.</div>
