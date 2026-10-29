@@ -210,11 +210,10 @@
   }
   .hero-grid {
     position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-    gap: 48px;
-    align-items: center;
+    text-align: center;
   }
+  .hero-grid .lede { margin: 0 auto; }
+  .hero-grid .hero-badges, .hero-grid .hero-actions { justify-content: center; }
   .eyebrow {
     display: inline-flex;
     align-items: center;
@@ -296,37 +295,47 @@
   .btn-ghost { background: var(--paper); color: var(--ink); }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
 
-  /* Fanned phones */
+  /* Fanned phones: seven on desktop, five on tablets, three on phones */
   .hero-phones {
+    --k: 1;
+    --h: 440px;
     position: relative;
-    height: 520px;
+    height: calc(var(--h) + 150px);
+    margin-top: 56px;
   }
   .hero-phones img {
     position: absolute;
-    top: 50%; left: 50%;
-    height: 440px;
+    top: 0; left: 50%;
+    height: var(--h);
     width: auto;
     aspect-ratio: 460 / 995;
     border-radius: 34px;
     border: 7px solid #111;
     background: #111;
     box-shadow: 0 30px 60px rgba(23,22,26,0.22), 0 8px 18px rgba(23,22,26,0.12);
+    transform-origin: 50% 100%;
+    transform: translateX(calc(-50% + var(--x) * var(--k))) translateY(calc(var(--y) * var(--k))) rotate(var(--r)) scale(var(--s));
   }
-  .hero-phones img:nth-child(1) { transform: translate(-104%, -46%) rotate(-7deg); }
-  .hero-phones img:nth-child(3) { transform: translate(4%, -46%) rotate(7deg); }
-  .hero-phones img:nth-child(2) { transform: translate(-50%, -52%); z-index: 2; height: 480px; }
-  @media (max-width: 900px) {
-    .hero-grid { grid-template-columns: 1fr; gap: 24px; }
-    .hero-phones { height: 380px; }
-    .hero-phones img { height: 300px; border-radius: 26px; border-width: 5px; }
-    .hero-phones img:nth-child(2) { height: 330px; }
+  .hero-phones img:nth-child(4) { --x: 0px;    --y: 0px;   --r: 0deg;   --s: 1;    z-index: 4; }
+  .hero-phones img:nth-child(3) { --x: -165px; --y: 26px;  --r: -6deg;  --s: .92;  z-index: 3; }
+  .hero-phones img:nth-child(5) { --x: 165px;  --y: 26px;  --r: 6deg;   --s: .92;  z-index: 3; }
+  .hero-phones img:nth-child(2) { --x: -315px; --y: 70px;  --r: -12deg; --s: .84;  z-index: 2; }
+  .hero-phones img:nth-child(6) { --x: 315px;  --y: 70px;  --r: 12deg;  --s: .84;  z-index: 2; }
+  .hero-phones img:nth-child(1) { --x: -450px; --y: 130px; --r: -18deg; --s: .76;  z-index: 1; }
+  .hero-phones img:nth-child(7) { --x: 450px;  --y: 130px; --r: 18deg;  --s: .76;  z-index: 1; }
+  @media (max-width: 1100px) {
+    .hero-phones { height: calc(var(--h) + 90px); }
+    .hero-phones img:nth-child(1), .hero-phones img:nth-child(7) { display: none; }
   }
-  @media (max-width: 420px) {
-    .hero-phones { height: 320px; }
-    .hero-phones img { height: 250px; border-radius: 22px; }
-    .hero-phones img:nth-child(2) { height: 280px; }
-    .hero-phones img:nth-child(1) { transform: translate(-100%, -46%) rotate(-8deg); }
-    .hero-phones img:nth-child(3) { transform: translate(0%, -46%) rotate(8deg); }
+  @media (max-width: 760px) {
+    .hero-phones { --k: .62; --h: 320px; height: calc(var(--h) + 90px); margin-top: 40px; }
+    .hero-phones img { border-radius: 26px; border-width: 5px; }
+  }
+  @media (max-width: 480px) {
+    header.hero { padding-bottom: 48px; }
+    .hero-phones { --k: .5; --h: 280px; height: calc(var(--h) + 30px); }
+    .hero-phones img { border-radius: 22px; }
+    .hero-phones img:nth-child(2), .hero-phones img:nth-child(6) { display: none; }
   }
 
   /* ---------- Section scaffolding ---------- */
@@ -723,7 +732,6 @@
 
 <header class="hero" id="top">
   <div class="wrap hero-grid">
-    <div>
     <div class="eyebrow">Senior iOS Engineer</div>
     <h1>I build iOS apps,<br>from idea to <span class="hl">App&nbsp;Store.</span></h1>
     <p class="lede">
@@ -739,12 +747,15 @@
       <a class="btn btn-ghost" href="Nathaniel-Brion-Sison-Resume.pdf" target="_blank" rel="noopener">Download resume</a>
       <a class="btn btn-ghost" href="https://github.com/ngsison" target="_blank" rel="noopener">GitHub</a>
     </div>
-    </div>
-    <div class="hero-phones" aria-hidden="true">
-      <img src="assets/shots/shot-07.webp" alt="">
-      <img src="assets/shots/shot-01.webp" alt="">
-      <img src="assets/shots/shot-17.webp" alt="">
-    </div>
+  </div>
+  <div class="hero-phones" aria-hidden="true">
+    <img src="assets/shots/shot-07.webp" alt="">
+    <img src="assets/shots/shot-12.webp" alt="">
+    <img src="assets/shots/shot-42.webp" alt="">
+    <img src="assets/shots/shot-02.webp" alt="">
+    <img src="assets/shots/shot-37.webp" alt="">
+    <img src="assets/shots/shot-22.webp" alt="">
+    <img src="assets/shots/shot-17.webp" alt="">
   </div>
 </header>
 
