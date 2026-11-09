@@ -56,10 +56,9 @@
   :root {
     --ink:        #17161a;
     --ink-soft:   #4e4b52;
-    --ink-faint:  #85818a;
+    --ink-faint:  #6f6b74;
     --accent:     #c0392b;
     --accent-dk:  #a5301f;
-    --accent-bg:  rgba(192,57,43,0.08);
     --rule:       #e7e3dc;
     --rule-strong:#d6d0c5;
     --paper:      #ffffff;
@@ -69,7 +68,8 @@
     --shadow-sm:  0 1px 2px rgba(23,22,26,0.04), 0 2px 8px rgba(23,22,26,0.04);
     --shadow-lg:  0 2px 4px rgba(23,22,26,0.04), 0 18px 40px rgba(23,22,26,0.09);
     --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --maxw: 1080px;
+    --maxw: 1120px;
+    --gutter: 28px;
     --radius: 16px;
   }
   @media (prefers-color-scheme: dark) {
@@ -79,7 +79,6 @@
       --ink-faint:  #8a857e;
       --accent:     #ef6b5b;
       --accent-dk:  #ff8a7c;
-      --accent-bg:  rgba(239,107,91,0.12);
       --rule:       #2c2a2e;
       --rule-strong:#3b383e;
       --paper:      #1b1a1e;
@@ -109,8 +108,8 @@
   a:hover { color: var(--accent-dk); }
   :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
 
-  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
-  @media (max-width: 520px) { .wrap { padding: 0 20px; } }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+  @media (max-width: 520px) { :root { --gutter: 20px; } }
 
   /* ---------- Nav ---------- */
   nav {
@@ -159,7 +158,7 @@
     transition: color .15s ease, background .15s ease;
   }
   .nav-links a:hover { color: var(--ink); background: var(--tag-bg); }
-  .nav-links a.active { color: var(--accent); background: var(--accent-bg); }
+  .nav-links a.active { color: var(--ink); background: var(--tag-bg); }
   .nav-toggle {
     display: none;
     background: none; border: 0; cursor: pointer;
@@ -198,15 +197,7 @@
   header.hero {
     position: relative;
     overflow: hidden;
-    padding: 72px 0 80px;
-  }
-  header.hero::before {
-    content: "";
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(700px 420px at 85% 30%, var(--accent-bg), transparent 70%),
-      radial-gradient(600px 300px at 0% 0%, var(--accent-bg), transparent 70%);
-    pointer-events: none;
+    padding: 48px 0 40px;
   }
   .hero-grid {
     position: relative;
@@ -222,14 +213,8 @@
     letter-spacing: 0.16em;
     font-size: 12px;
     font-weight: 700;
-    color: var(--accent);
-    margin-bottom: 20px;
-  }
-  .eyebrow::before {
-    content: "";
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 4px var(--accent-bg);
+    color: var(--ink-soft);
+    margin-bottom: 18px;
   }
   h1 {
     font-size: clamp(38px, 6vw, 64px);
@@ -295,56 +280,77 @@
   .btn-ghost { background: var(--paper); color: var(--ink); }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
 
-  /* Fanned phones: seven on desktop, five on tablets, three on phones */
-  .hero-phones {
-    --k: 1;
-    --h: 440px;
-    position: relative;
-    height: calc(var(--h) + 150px);
-    margin-top: 56px;
+  /* Screenshot wall: every app, two full-width rows drifting in opposite directions.
+     Static and swipeable until the script starts it (never with reduced motion). */
+  .hero-wall { --h: 290px; --gap: 14px; position: relative; margin-top: 40px; }
+  .hero-wall-rows {
+    display: grid;
+    gap: var(--gap);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
   }
-  .hero-phones img {
-    position: absolute;
-    top: 0; left: 50%;
+  .hero-wall-row { overflow-x: auto; scrollbar-width: none; }
+  .hero-wall-row::-webkit-scrollbar { display: none; }
+  .hero-wall.moving .hero-wall-row { overflow: hidden; }
+  .hero-wall-track { display: flex; width: max-content; }
+  .hero-wall-set { display: flex; flex: none; }
+  .hero-wall img {
+    display: block;
+    flex: none;
     height: var(--h);
     width: auto;
     aspect-ratio: 460 / 995;
-    border-radius: 34px;
-    border: 7px solid #111;
-    background: #111;
-    box-shadow: 0 30px 60px rgba(23,22,26,0.22), 0 8px 18px rgba(23,22,26,0.12);
-    transform-origin: 50% 100%;
-    transform: translateX(calc(-50% + var(--x) * var(--k))) translateY(calc(var(--y) * var(--k))) rotate(var(--r)) scale(var(--s));
+    object-fit: cover;
+    margin-right: var(--gap);
+    border-radius: 20px;
+    background: var(--tag-bg);
   }
-  .hero-phones img:nth-child(4) { --x: 0px;    --y: 0px;   --r: 0deg;   --s: 1;    z-index: 4; }
-  .hero-phones img:nth-child(3) { --x: -165px; --y: 26px;  --r: -6deg;  --s: .92;  z-index: 3; }
-  .hero-phones img:nth-child(5) { --x: 165px;  --y: 26px;  --r: 6deg;   --s: .92;  z-index: 3; }
-  .hero-phones img:nth-child(2) { --x: -315px; --y: 70px;  --r: -12deg; --s: .84;  z-index: 2; }
-  .hero-phones img:nth-child(6) { --x: 315px;  --y: 70px;  --r: 12deg;  --s: .84;  z-index: 2; }
-  .hero-phones img:nth-child(1) { --x: -450px; --y: 130px; --r: -18deg; --s: .76;  z-index: 1; }
-  .hero-phones img:nth-child(7) { --x: 450px;  --y: 130px; --r: 18deg;  --s: .76;  z-index: 1; }
-  @media (max-width: 1100px) {
-    .hero-phones { height: calc(var(--h) + 90px); }
-    .hero-phones img:nth-child(1), .hero-phones img:nth-child(7) { display: none; }
+  .hero-wall img[src*="drums-"] { aspect-ratio: 1521 / 700; }  /* Drum Kit is landscape */
+  .hero-wall.moving .hero-wall-track { animation: wall-drift 110s linear infinite; }
+  .hero-wall.moving .hero-wall-row:nth-child(2) .hero-wall-track { animation-direction: reverse; animation-duration: 90s; }
+  .hero-wall.paused .hero-wall-track { animation-play-state: paused; }
+  @media (hover: hover) { .hero-wall-rows:hover .hero-wall-track { animation-play-state: paused; } }
+  @keyframes wall-drift { to { transform: translateX(-50%); } }
+  .hero-wall-toggle {
+    display: none;
+    position: absolute;
+    right: var(--gutter); bottom: 10px;
+    width: 36px; height: 36px;
+    place-items: center;
+    border: 0; border-radius: 50%;
+    background: rgba(18,17,20,0.72);
+    cursor: pointer;
+  }
+  .hero-wall.moving .hero-wall-toggle { display: grid; }
+  .hero-wall-toggle::before {
+    content: "";
+    width: 10px; height: 12px;
+    border-left: 3px solid #fff;
+    border-right: 3px solid #fff;
+  }
+  .hero-wall.paused .hero-wall-toggle::before {
+    width: 0; height: 0;
+    margin-left: 3px;
+    border-style: solid;
+    border-width: 7px 0 7px 11px;
+    border-color: transparent transparent transparent #fff;
   }
   @media (max-width: 760px) {
-    .hero-phones { --k: .62; --h: 320px; height: calc(var(--h) + 90px); margin-top: 40px; }
-    .hero-phones img { border-radius: 26px; border-width: 5px; }
+    .hero-wall { --h: 230px; --gap: 12px; margin-top: 32px; }
+    .hero-wall img { border-radius: 16px; }
   }
   @media (max-width: 480px) {
-    header.hero { padding-bottom: 48px; }
-    .hero-phones { --k: .5; --h: 280px; height: calc(var(--h) + 30px); }
-    .hero-phones img { border-radius: 22px; }
-    .hero-phones img:nth-child(2), .hero-phones img:nth-child(6) { display: none; }
+    header.hero { padding: 36px 0 24px; }
+    .hero-wall { --h: 200px; --gap: 10px; }
+    .hero-wall img { border-radius: 14px; }
   }
 
   /* ---------- Section scaffolding ---------- */
-  section.block { padding: 88px 0; }
-  section.block:nth-of-type(even) { background: var(--paper); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-  section.block:nth-of-type(even) .card,
-  section.block:nth-of-type(even) .review,
-  section.block:nth-of-type(even) .rec { background: var(--bg); }
-  @media (max-width: 620px) { section.block { padding: 64px 0; } }
+  section.block { padding: 72px 0; }
+  section.block + section.block { border-top: 1px solid var(--rule); }
+  @media (max-width: 620px) { section.block { padding: 56px 0; } }
+  section.block#education { padding: 44px 0 56px; }
+  #education .section-head { font-size: clamp(22px, 3vw, 26px); margin-bottom: 16px; }
   .section-head {
     display: flex;
     align-items: baseline;
@@ -354,15 +360,7 @@
     letter-spacing: -0.03em;
     line-height: 1.1;
     color: var(--ink);
-    margin-bottom: 36px;
-  }
-  .section-head .num {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: var(--accent);
-    font-variant-numeric: tabular-nums;
-    transform: translateY(-0.5em);
+    margin-bottom: 32px;
   }
 
   .prose { font-size: clamp(19px, 2.4vw, 23px); line-height: 1.55; color: var(--ink); max-width: 780px; letter-spacing: -0.01em; }
@@ -371,27 +369,26 @@
   .stat-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-top: 44px;
+    margin-top: 40px;
+    border-top: 1px solid var(--rule-strong);
   }
-  @media (max-width: 720px) { .stat-row { grid-template-columns: repeat(2, 1fr); } }
-  .stat {
-    background: var(--paper);
-    border: 1px solid var(--rule);
-    border-radius: var(--radius);
-    padding: 22px 22px 20px;
-    box-shadow: var(--shadow-sm);
+  .stat { padding: 20px 20px 20px 24px; border-left: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .stat:first-child { border-left: 0; padding-left: 0; }
+  @media (max-width: 720px) {
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(odd) { border-left: 0; padding-left: 0; }
   }
-  .stat .n { font-size: clamp(34px, 4.5vw, 46px); font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--accent); }
+  .stat .n { font-size: clamp(34px, 4.5vw, 46px); font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--ink); }
   .stat .l { font-size: 14px; color: var(--ink-soft); margin-top: 10px; }
 
   /* ---------- Projects ---------- */
   .proj-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
   }
-  @media (max-width: 760px) { .proj-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 980px) { .proj-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .proj-grid { grid-template-columns: minmax(0, 1fr); } }
 
   .card {
     background: var(--paper);
@@ -408,17 +405,54 @@
     box-shadow: var(--shadow-lg);
     border-color: var(--rule-strong);
   }
-  .card.feature { grid-column: 1 / -1; }
+  .card.moneta { --tint: #0b4f3c; }
+  .card.quickworm { --tint: #2c2470; }
+  .card.feature {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 8fr);
+    grid-template-rows: auto auto auto 1fr;
+    column-gap: 40px;
+    padding: 40px 0 36px 40px;
+    background: var(--tint);
+    border: 0;
+    color: #fff;
+    overflow: hidden;
+  }
+  .card.feature:hover { transform: none; box-shadow: none; }
+  .card.feature h3 { font-size: clamp(28px, 3.2vw, 36px); letter-spacing: -0.03em; }
+  .card.feature .desc { color: rgba(255,255,255,0.84); font-size: 18px; margin-top: 10px; }
+  .card.feature .card-links { margin-top: 16px; font-size: 14.5px; }
+  .card.feature .card-links a { color: #fff; }
+  .card.feature .rating { background: rgba(255,255,255,0.16); color: #fff; }
+  .card.feature .stack { padding-top: 24px; align-self: end; }
+  .card.feature .tag { color: rgba(255,255,255,0.72); }
+  .card.feature > .shots {
+    grid-column: 2; grid-row: 1 / -1;
+    margin: 0; padding: 0 40px 10px 0;
+    max-width: none;
+    scroll-padding: 0;
+    scrollbar-color: rgba(255,255,255,0.3) transparent;
+    align-self: center;
+  }
+  .card.feature > .shots::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); }
+  .card.feature .shots img { height: 400px; border: 0; }
+  @media (max-width: 760px) {
+    .card.feature { display: flex; padding: 28px 24px 24px; }
+    .card.feature > .shots { margin: 20px -24px 0; padding: 4px 24px 10px; max-width: calc(100% + 48px); scroll-padding: 0 24px; }
+    .card.feature .shots img { height: 320px; }
+  }
   .card.all-apps {
+    grid-column: span 2;
     justify-content: center;
     align-items: center;
     text-align: center;
     gap: 14px;
     min-height: 220px;
-    border-style: dashed;
-    border-width: 2px;
+    background: var(--tag-bg);
     color: var(--ink);
   }
+  @media (max-width: 980px) { .card.all-apps { grid-column: auto; } }
   .card.all-apps:hover { border-color: var(--accent); }
   .all-apps-label { font-size: 21px; font-weight: 750; letter-spacing: -0.02em; }
   .all-apps-cta {
@@ -448,14 +482,15 @@
     border-radius: 100px;
     white-space: nowrap;
   }
-  .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .card-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; }
   .card h3 { font-size: 21px; font-weight: 750; letter-spacing: -0.02em; }
   .card .desc { color: var(--ink-soft); font-size: 15.5px; margin-top: 6px; line-height: 1.5; }
   .card-links { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13.5px; font-weight: 600; }
   .card-links a { display: inline-flex; align-items: center; gap: 5px; }
   .card-links a::after { content: "↗"; font-size: 11px; transition: transform .15s ease; }
   .card-links a:hover::after { transform: translate(2px, -2px); }
-  .stack { margin-top: auto; padding-top: 18px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .stack { margin-top: auto; padding-top: 16px; display: flex; flex-wrap: wrap; gap: 2px 12px; }
+  .stack .tag { background: none; border: 0; padding: 0; font-size: 12.5px; color: var(--ink-faint); }
   .tag {
     background: var(--tag-bg);
     border: 1px solid var(--rule);
@@ -466,20 +501,18 @@
   }
 
   .rating {
-    font-size: 12px; font-weight: 700; color: var(--accent);
-    background: var(--accent-bg);
+    font-size: 12px; font-weight: 700; color: var(--ink-soft);
+    background: var(--tag-bg);
     padding: 4px 10px; border-radius: 100px;
     white-space: nowrap;
   }
 
   /* ---------- Reviews ---------- */
-  .review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  @media (max-width: 860px) { .review-grid { grid-template-columns: 1fr; } }
+  .review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  @media (max-width: 860px) { .review-grid { grid-template-columns: 1fr; gap: 28px; } }
   .review {
-    background: var(--paper);
-    border: 1px solid var(--rule);
-    border-radius: var(--radius);
-    padding: 26px;
+    border-top: 1px solid var(--rule-strong);
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
   }
@@ -507,9 +540,9 @@
   .shots::-webkit-scrollbar-track { background: transparent; }
   .shots::-webkit-scrollbar-thumb { background: var(--rule-strong); border-radius: 3px; }
   .shots img {
-    height: 300px;
+    height: 240px;
     width: auto;
-    border-radius: 18px;
+    border-radius: 16px;
     border: 1px solid var(--rule);
     flex: 0 0 auto;
     scroll-snap-align: start;
@@ -518,7 +551,6 @@
     transition: transform .15s ease;
   }
   .shots img:hover { transform: scale(1.02); }
-  .feature .shots img { height: 320px; }
   .shots img { cursor: zoom-in; }
 
   /* ---------- Lightbox ---------- */
@@ -553,11 +585,10 @@
   }
 
   /* ---------- Recommendations ---------- */
-  .rec-grid { columns: 2; column-gap: 20px; }
-  @media (max-width: 820px) { .rec-grid { columns: 1; } }
+  .rec-grid { columns: 2; column-gap: 16px; }
   .rec {
     break-inside: avoid;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     background: var(--paper);
     border: 1px solid var(--rule);
     border-radius: var(--radius);
@@ -565,12 +596,29 @@
     display: flex;
     flex-direction: column;
   }
-  .rec .quote-mark { color: var(--accent); font-size: 54px; line-height: 0.6; font-weight: 800; height: 26px; font-family: Georgia, serif; }
+  @media (max-width: 820px) {
+    /* Phones and small tablets: one swipeable row, next card peeking in */
+    .rec-grid {
+      columns: auto;
+      display: flex;
+      gap: 12px;
+      margin: 0 calc(var(--gutter) * -1);
+      padding: 0 var(--gutter) 10px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding: 0 var(--gutter);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: var(--rule-strong) transparent;
+    }
+    .rec { flex: 0 0 min(84%, 360px); margin: 0; padding: 24px; scroll-snap-align: start; }
+  }
+  .rec .quote-mark { color: var(--rule-strong); font-size: 54px; line-height: 0.6; font-weight: 800; height: 26px; font-family: Georgia, serif; }
   .rec .quote { font-size: 15.5px; color: var(--ink); line-height: 1.65; flex: 1; }
   .rec .rec-by { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--rule); }
   .rec .rec-name { font-weight: 700; font-size: 15px; color: var(--ink); }
   .rec .rec-role { font-size: 13px; color: var(--ink-faint); margin-top: 2px; line-height: 1.4; }
-  .rec .rec-rel { font-size: 12px; font-weight: 600; color: var(--accent); margin-top: 6px; }
+  .rec .rec-rel { font-size: 12px; font-weight: 600; color: var(--ink-faint); margin-top: 6px; }
   .endorse { margin-top: 24px; }
   .endorse-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-faint); font-weight: 700; margin-bottom: 14px; }
   .endorse-tags { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -585,8 +633,8 @@
   }
   .endorse-tag:not(:has(b)) { padding-right: 14px; }
   .endorse-tag b {
-    color: var(--accent); font-weight: 700; font-size: 12px;
-    background: var(--accent-bg);
+    color: var(--ink); font-weight: 700; font-size: 12px;
+    background: var(--rule);
     min-width: 24px; padding: 1px 7px; border-radius: 100px; text-align: center;
   }
   .endorse-foot { margin-top: 18px; font-size: 13px; color: var(--ink-faint); }
@@ -615,11 +663,10 @@
     left: 185px; top: 4px;
     width: 12px; height: 12px;
     background: var(--bg);
-    border: 2px solid var(--accent);
+    border: 2px solid var(--rule-strong);
     border-radius: 50%;
   }
-  section.block:nth-of-type(even) .xp-item::after { background: var(--paper); }
-  .xp-item:first-child::after { background: var(--accent); box-shadow: 0 0 0 5px var(--accent-bg); }
+  .xp-item:first-child::after { background: var(--ink); border-color: var(--ink); }
   .xp-head, .xp-meta, .xp-list { grid-column: 2; }
   .xp-head { display: contents; }
   .xp-head > div:first-child { grid-column: 2; grid-row: 1; font-size: 15px; }
@@ -630,12 +677,12 @@
     font-variant-numeric: tabular-nums;
   }
   .xp-role { font-size: 19px; font-weight: 750; letter-spacing: -0.015em; }
-  .xp-co { color: var(--accent); font-weight: 600; font-size: 16px; }
+  .xp-co { color: var(--ink-soft); font-weight: 600; font-size: 16px; }
   .xp-meta { font-size: 13px; color: var(--ink-faint); margin: 3px 0 12px; }
   .xp-head + .xp-list { margin-top: 12px; }
   .xp-list { list-style: none; }
   .xp-list li { position: relative; padding-left: 18px; font-size: 15.5px; color: var(--ink-soft); margin-bottom: 7px; line-height: 1.55; }
-  .xp-list li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 2px; background: var(--accent); border-radius: 2px; }
+  .xp-list li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 2px; background: var(--rule-strong); border-radius: 2px; }
   @media (max-width: 720px) {
     .xp { border-left: 2px solid var(--rule); margin-left: 6px; }
     .xp-item { display: block; padding: 0 0 34px 26px; }
@@ -646,28 +693,26 @@
   }
 
   /* ---------- Skills ---------- */
-  .skill-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  @media (max-width: 900px) { .skill-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 620px) { .skill-grid { grid-template-columns: 1fr; } }
   .skill-grid > div {
-    background: var(--paper);
-    border: 1px solid var(--rule);
-    border-radius: var(--radius);
-    padding: 22px;
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: 8px 32px;
+    padding: 18px 0;
+    border-top: 1px solid var(--rule);
   }
-  .skill-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); font-weight: 700; margin-bottom: 14px; }
-  .skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+  .skill-grid > div:first-child { border-top-color: var(--rule-strong); }
+  .skill-grid > div:last-child { border-bottom: 1px solid var(--rule); }
+  @media (max-width: 620px) { .skill-grid > div { grid-template-columns: minmax(0, 1fr); } }
+  .skill-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-faint); font-weight: 700; padding-top: 4px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+  .skill-tags .tag { background: none; border: 0; padding: 0; font-size: 15.5px; color: var(--ink); }
 
   /* ---------- Education ---------- */
   .edu-row {
     display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px;
-    background: var(--bg);
-    border: 1px solid var(--rule);
-    border-radius: var(--radius);
-    padding: 24px 26px;
   }
   .edu-deg { font-size: 19px; font-weight: 750; letter-spacing: -0.015em; }
-  .edu-school { color: var(--accent); font-weight: 600; font-size: 15.5px; }
+  .edu-school { color: var(--ink-soft); font-weight: 600; font-size: 15.5px; }
   .edu-dates { font-size: 13.5px; font-weight: 600; color: var(--ink-faint); }
 
   /* ---------- Footer ---------- */
@@ -748,42 +793,30 @@
       <a class="btn btn-ghost" href="https://github.com/ngsison" target="_blank" rel="noopener">GitHub</a>
     </div>
   </div>
-  <div class="hero-phones" aria-hidden="true">
-    <img src="assets/shots/quickworm-01.webp" alt="">
-    <img src="assets/shots/bubblepop-01.webp" alt="">
-    <img src="assets/shots/spinwheel-01.webp" alt="">
-    <img src="assets/shots/shot-02.webp" alt="">
-    <img src="assets/shots/hushmoon-01.webp" alt="">
-    <img src="assets/shots/firstwords-01.webp" alt="">
-    <img src="assets/shots/metronome-01.webp" alt="">
+  <div class="hero-wall">
+    <div class="hero-wall-rows" aria-hidden="true">
+      <div class="hero-wall-row"><div class="hero-wall-track"><div class="hero-wall-set">
+        <img alt="" src="assets/shots/shot-02.webp"><img alt="" src="assets/shots/quickworm-01.webp"><img alt="" src="assets/shots/drums-01.webp"><img alt="" src="assets/shots/hushmoon-01.webp"><img alt="" src="assets/shots/spinwheel-01.webp"><img alt="" src="assets/shots/bubblepop-01.webp"><img alt="" src="assets/shots/metronome-01.webp"><img alt="" src="assets/shots/firstwords-01.webp"><img alt="" src="assets/shots/diceroller-01.webp">
+        <img alt="" src="assets/shots/shot-04.webp"><img alt="" src="assets/shots/quickworm-03.webp"><img alt="" src="assets/shots/drums-03.webp"><img alt="" src="assets/shots/hushmoon-03.webp"><img alt="" src="assets/shots/spinwheel-03.webp"><img loading="lazy" alt="" src="assets/shots/bubblepop-03.webp"><img loading="lazy" alt="" src="assets/shots/metronome-03.webp"><img loading="lazy" alt="" src="assets/shots/firstwords-03.webp"><img loading="lazy" alt="" src="assets/shots/diceroller-03.webp">
+        <img loading="lazy" alt="" src="assets/shots/shot-06.webp"><img loading="lazy" alt="" src="assets/shots/quickworm-05.webp"><img loading="lazy" alt="" src="assets/shots/drums-05.webp"><img loading="lazy" alt="" src="assets/shots/hushmoon-05.webp"><img loading="lazy" alt="" src="assets/shots/spinwheel-05.webp"><img loading="lazy" alt="" src="assets/shots/bubblepop-05.webp"><img loading="lazy" alt="" src="assets/shots/firstwords-05.webp"><img loading="lazy" alt="" src="assets/shots/diceroller-05.webp">
+      </div></div></div>
+      <div class="hero-wall-row"><div class="hero-wall-track"><div class="hero-wall-set">
+        <img alt="" src="assets/shots/hushmoon-02.webp"><img alt="" src="assets/shots/spinwheel-02.webp"><img alt="" src="assets/shots/bubblepop-02.webp"><img alt="" src="assets/shots/metronome-02.webp"><img alt="" src="assets/shots/firstwords-02.webp"><img alt="" src="assets/shots/diceroller-02.webp"><img alt="" src="assets/shots/shot-01.webp"><img alt="" src="assets/shots/quickworm-02.webp"><img alt="" src="assets/shots/drums-02.webp">
+        <img alt="" src="assets/shots/hushmoon-04.webp"><img alt="" src="assets/shots/spinwheel-04.webp"><img alt="" src="assets/shots/bubblepop-04.webp"><img alt="" src="assets/shots/firstwords-04.webp"><img alt="" src="assets/shots/diceroller-04.webp"><img loading="lazy" alt="" src="assets/shots/shot-03.webp"><img loading="lazy" alt="" src="assets/shots/quickworm-04.webp"><img loading="lazy" alt="" src="assets/shots/drums-04.webp">
+        <img loading="lazy" alt="" src="assets/shots/spinwheel-06.webp"><img loading="lazy" alt="" src="assets/shots/bubblepop-06.webp"><img loading="lazy" alt="" src="assets/shots/shot-05.webp">
+      </div></div></div>
+    </div>
+    <button class="hero-wall-toggle" type="button" aria-label="Pause moving screenshots" aria-pressed="false"></button>
   </div>
 </header>
-
-<!-- ABOUT -->
-<section class="block" id="about">
-  <div class="wrap">
-    <div class="section-head"><span class="num">01</span>About</div>
-    <p class="prose">
-      I care most about what users never see: clean, tested code that a team can
-      keep building on. On every team I join, I bring code reviews, tests, and
-      automated builds, and I fix root causes instead of patching symptoms.
-    </p>
-    <div class="stat-row">
-      <div class="stat"><div class="n">10</div><div class="l">years in software</div></div>
-      <div class="stat"><div class="n">9</div><div class="l">years in mobile</div></div>
-      <div class="stat"><div class="n">4+</div><div class="l">years with US companies</div></div>
-      <div class="stat"><div class="n">9</div><div class="l">self-published apps</div></div>
-    </div>
-  </div>
-</section>
 
 <!-- WORK -->
 <section class="block" id="work">
   <div class="wrap">
-    <div class="section-head"><span class="num">02</span>Selected Work</div>
+    <div class="section-head">Selected Work</div>
     <div class="proj-grid">
 
-      <article class="card">
+      <article class="card feature moneta">
         <div class="card-top"><h3>Moneta</h3><span class="rating">★ 5.0 · App Store</span></div>
         <p class="desc">Budget tracker that works offline and syncs across devices.</p>
         <div class="card-links">
@@ -804,7 +837,7 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card feature quickworm">
         <div class="card-top"><h3>Quickworm</h3></div>
         <p class="desc">AI book summaries of any title, quick or chapter by chapter.</p>
         <div class="card-links">
@@ -963,10 +996,28 @@
   </div>
 </section>
 
+<!-- ABOUT -->
+<section class="block" id="about">
+  <div class="wrap">
+    <div class="section-head">About</div>
+    <p class="prose">
+      I care most about what users never see: clean, tested code that a team can
+      keep building on. On every team I join, I bring code reviews, tests, and
+      automated builds, and I fix root causes instead of patching symptoms.
+    </p>
+    <div class="stat-row">
+      <div class="stat"><div class="n">10</div><div class="l">years in software</div></div>
+      <div class="stat"><div class="n">9</div><div class="l">years in mobile</div></div>
+      <div class="stat"><div class="n">4+</div><div class="l">years with US companies</div></div>
+      <div class="stat"><div class="n">9</div><div class="l">self-published apps</div></div>
+    </div>
+  </div>
+</section>
+
 <!-- AI -->
 <section class="block" id="ai">
   <div class="wrap">
-    <div class="section-head"><span class="num">03</span>Building with AI</div>
+    <div class="section-head">Building with AI</div>
     <div class="xp">
 
       <div class="xp-item">
@@ -1022,7 +1073,7 @@
 <!-- REVIEWS -->
 <section class="block" id="reviews">
   <div class="wrap">
-    <div class="section-head"><span class="num">04</span>What users say</div>
+    <div class="section-head">What users say</div>
     <div class="review-grid">
 
       <div class="review">
@@ -1054,7 +1105,7 @@
 <!-- RECOMMENDATIONS -->
 <section class="block" id="recommendations">
   <div class="wrap">
-    <div class="section-head"><span class="num">05</span>Recommendations</div>
+    <div class="section-head">Recommendations</div>
     <div class="rec-grid">
 
       <div class="rec">
@@ -1141,7 +1192,7 @@
 <!-- EXPERIENCE -->
 <section class="block" id="experience">
   <div class="wrap">
-    <div class="section-head"><span class="num">06</span>Experience</div>
+    <div class="section-head">Experience</div>
     <div class="xp">
 
       <div class="xp-item">
@@ -1240,7 +1291,7 @@
 <!-- SKILLS -->
 <section class="block" id="skills">
   <div class="wrap">
-    <div class="section-head"><span class="num">07</span>Skills</div>
+    <div class="section-head">Skills</div>
     <div class="skill-grid">
       <div>
         <div class="skill-label">Languages</div>
@@ -1297,7 +1348,7 @@
 <!-- EDUCATION -->
 <section class="block" id="education">
   <div class="wrap">
-    <div class="section-head"><span class="num">08</span>Education</div>
+    <div class="section-head">Education</div>
     <div class="edu-row">
       <div>
         <div class="edu-deg">BS in Information Technology</div>
@@ -1342,6 +1393,22 @@
   window.addEventListener('pageshow', function() {
     document.querySelectorAll('.shots').forEach(function(s) { s.scrollLeft = 0; });
   });
+
+  // Hero screenshot wall: duplicate each row for a seamless loop, unless motion is reduced
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var wall = document.querySelector('.hero-wall');
+    var toggle = wall.querySelector('.hero-wall-toggle');
+    wall.querySelectorAll('.hero-wall-track').forEach(function (track) {
+      track.appendChild(track.firstElementChild.cloneNode(true));
+    });
+    wall.classList.add('moving');
+    toggle.addEventListener('click', function () {
+      var paused = wall.classList.toggle('paused');
+      toggle.setAttribute('aria-pressed', paused ? 'true' : 'false');
+      toggle.setAttribute('aria-label', paused ? 'Play moving screenshots' : 'Pause moving screenshots');
+    });
+  })();
 
   // Mobile nav toggle
   (function () {
